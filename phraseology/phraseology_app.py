@@ -15,20 +15,23 @@ def main():
         phraseology_list = json.load(file)
     
     search_term = st.text_input("Введите фразеологизм или ключевое слово для поиска")
-    if st.button("Поиск"):
-        for phrase_info in phraseology_list:
-            phraseology = phrase_info.get("Фразеологизм", "").lower()
-            if re.search(r'\b{}\b'.format(re.escape(search_term.lower())), phraseology):
-                st.subheader(phrase_info["Фразеологизм"])
-                display_phraseology_info(phrase_info)
+    mode_switch = st.checkbox("Поиск", True)
 
-    selected_letter = st.sidebar.selectbox("Выберите начальную букву для вывода фразеологизмов по алфавиту",
-                                           sorted(set(phrase.get('Фразеологизм', '')[0].upper() for phrase in phraseology_list if phrase.get('Фразеологизм'))))
-    filtered_phrases = [phrase_info for phrase_info in phraseology_list if phrase_info.get('Фразеологизм', '').startswith(selected_letter.lower())]
-    
-    for phrase_info in filtered_phrases:
-        st.subheader(phrase_info["Фразеологизм"])
-        display_phraseology_info(phrase_info)
+    if mode_switch:
+        if st.button("Найти"):
+            for phrase_info in phraseology_list:
+                phraseology = phrase_info.get("Фразеологизм", "").lower()
+                if re.search(r'\b{}\b'.format(re.escape(search_term.lower())), phraseology):
+                    st.subheader(phrase_info["Фразеологизм"])
+                    display_phraseology_info(phrase_info)
+    else:
+        selected_letter = st.sidebar.selectbox("Выберите начальную букву для вывода фразеологизмов по алфавиту",
+                                               sorted(set(phrase.get('Фразеологизм', '')[0].upper() for phrase in phraseology_list if phrase.get('Фразеологизм'))))
+        filtered_phrases = [phrase_info for phrase_info in phraseology_list if phrase_info.get('Фразеологизм', '').startswith(selected_letter.lower())]
+        
+        for phrase_info in filtered_phrases:
+            st.subheader(phrase_info["Фразеологизм"])
+            display_phraseology_info(phrase_info)
 
     if st.button("Получить случайный фразеологизм"):
         random_phrase_info = random.choice(phraseology_list)
