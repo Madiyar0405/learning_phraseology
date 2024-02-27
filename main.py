@@ -5,7 +5,6 @@ from mainPage.info import main as main_page
 st.set_page_config(page_title="Фразеологизмы", page_icon="🌟")
 
 
-st.set_page_config(layout="wide")
 
 page = st.sidebar.selectbox("Выберите страницу", ["Главная страница", "Фразеологизмы", "Викторина"])
 
