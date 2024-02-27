@@ -2,6 +2,8 @@ import streamlit as st
 from phraseology.phraseology_app import main as phraseology_main
 from quiz.quiz_app import run_quiz  # Corrected import statement
 from mainPage.info import main as main_page
+st.set_page_config(page_title="Фразеологизмы", page_icon="🌟")
+
 
 st.set_page_config(layout="wide")
 
